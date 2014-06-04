@@ -1,0 +1,670 @@
+$MAX,C,E,0,0,#,
+$PI,C,R,0,0,#,
+$matriz,V,E,1000,1000,#,
+$vector,V,E,1000,0,#,
+Compara%D%D$a,P,R,0,0,#,
+Compara%D%D$b,P,R,0,0,#,
+Concat%L%L$a,P,A,0,0,#,
+Concat%L%L$b,P,A,0,0,#,
+FacIter%E$facto,V,E,0,0,#,
+FacIter%E$i,V,E,0,0,#,
+FacIter%E$n,P,E,0,0,#,
+FacRec%E$n,P,E,0,0,#,
+ImpMat%E$i,V,E,0,0,#,
+ImpMat%E$j,V,E,0,0,#,
+ImpMat%E$k,P,E,0,0,#,
+ImpVec%E$i,V,E,0,0,#,
+ImpVec%E$k,P,E,0,0,#,
+LeeMat%E$i,V,E,0,0,#,
+LeeMat%E$j,V,E,0,0,#,
+LeeMat%E$k,P,E,0,0,#,
+LeeVec%E$i,V,E,0,0,#,
+LeeVec%E$k,P,E,0,0,#,
+LeeVec%E$m,V,R,0,0,#,
+MulMat%E%E$i,V,E,0,0,#,
+MulMat%E%E$j,V,E,0,0,#,
+MulMat%E%E$k,P,E,0,0,#,
+MulMat%E%E$v,P,E,0,0,#,
+OrdVec%E$i,V,E,0,0,#,
+OrdVec%E$j,V,E,0,0,#,
+OrdVec%E$k,P,E,0,0,#,
+OrdVec%E$temp,V,E,0,0,#,
+Secuencia$i,V,L,0,0,#,
+Selecciona$n,V,E,0,0,#,
+Selecciona$opc,V,E,0,0,#,
+Test$i,V,E,0,0,#,
+VolCil%D%D$altura,P,R,0,0,#,
+VolCil%D%D$radio,P,R,0,0,#,
+_E1,I,I,25,0,#,
+_E10,I,I,121,0,#,
+_E11,I,I,100,0,#,
+_E12,I,I,95,0,#,
+_E13,I,I,118,0,#,
+_E14,I,I,113,0,#,
+_E15,I,I,141,0,#,
+_E16,I,I,164,0,#,
+_E17,I,I,152,0,#,
+_E18,I,I,152,0,#,
+_E19,I,I,158,0,#,
+_E2,I,I,15,0,#,
+_E20,I,I,166,0,#,
+_E21,I,I,185,0,#,
+_E22,I,I,184,0,#,
+_E23,I,I,184,0,#,
+_E24,I,I,185,0,#,
+_E25,I,I,193,0,#,
+_E26,I,I,212,0,#,
+_E27,I,I,218,0,#,
+_E28,I,I,244,0,#,
+_E29,I,I,289,0,#,
+_E3,I,I,21,0,#,
+_E30,I,I,255,0,#,
+_E31,I,I,283,0,#,
+_E32,I,I,277,0,#,
+_E33,I,I,277,0,#,
+_E34,I,I,296,0,#,
+_E35,I,I,318,0,#,
+_E36,I,I,326,0,#,
+_E37,I,I,363,0,#,
+_E38,I,I,333,0,#,
+_E39,I,I,357,0,#,
+_E4,I,I,35,0,#,
+_E40,I,I,372,0,#,
+_E41,I,I,404,0,#,
+_E42,I,I,379,0,#,
+_E43,I,I,398,0,#,
+_E44,I,I,412,0,#,
+_E45,I,I,452,0,#,
+_E46,I,I,419,0,#,
+_E47,I,I,446,0,#,
+_E48,I,I,473,0,#,
+_E49,I,I,475,0,#,
+_E5,I,I,50,0,#,
+_E50,I,I,487,0,#,
+_E51,I,I,505,0,#,
+_E52,I,I,512,0,#,
+_E53,I,I,515,0,#,
+_E54,I,I,518,0,#,
+_E55,I,I,524,0,#,
+_E56,I,I,528,0,#,
+_E57,I,I,531,0,#,
+_E58,I,I,533,0,#,
+_E59,I,I,545,0,#,
+_E6,I,I,68,0,#,
+_E7,I,I,121,0,#,
+_E8,I,I,120,0,#,
+_E9,I,I,82,0,#,
+principal$alfa,V,A,0,0,#,
+principal$beta,V,A,0,0,#,
+principal$n,V,E,0,0,#,
+principal$r,V,R,0,0,#,
+principal$s,V,R,0,0,#,
+Compara%D%D,F,L,453,0,#,
+Concat%L%L,F,A,54,0,#,
+FacIter%E,F,E,26,0,#,
+FacRec%E,F,E,6,0,#,
+ImpMat%E,F,I,405,0,#,
+ImpVec%E,F,I,290,0,#,
+LeeMat%E,F,I,319,0,#,
+LeeVec%E,F,I,186,0,#,
+MulMat%E%E,F,I,364,0,#,
+OrdVec%E,F,I,235,0,#,
+Secuencia,F,I,213,0,#,
+Selecciona,F,I,64,0,#,
+Test,F,I,137,0,#,
+VolCil%D%D,F,R,122,0,#,
+_E0,F,I,461,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 LIT 3.141592,0
+2 STO 0,$PI
+3 LIT 30,0
+4 STO 0,$MAX
+5 JMP 0,_E0
+6 STO 0,FacRec%E$n
+7 LOD FacRec%E$n,0
+8 LIT 2,0
+9 OPR 0,9
+10 JMC F,_E2
+11 LIT 1,0
+12 STO 0,FacRec%E
+13 OPR 0,1
+14 JMP 0,_E1
+15 LOD FacRec%E$n,0
+16 LOD _E3,0
+17 LOD FacRec%E$n,0
+18 LIT 1,0
+19 OPR 0,3
+20 CAL FacRec%E,0
+21 LOD FacRec%E,0
+22 OPR 0,4
+23 STO 0,FacRec%E
+24 OPR 0,1
+25 OPR 0,1
+26 STO 0,FacIter%E$n
+27 LIT 1,0
+28 STO 0,FacIter%E$i
+29 LIT 1,0
+30 STO 0,FacIter%E$facto
+31 LIT 1,0
+32 STO 0,FacIter%E$facto
+33 LOD FacIter%E$n,0
+34 STO 0,FacIter%E$i
+35 LOD FacIter%E$i,0
+36 LIT 2,0
+37 OPR 0,12
+38 JMC F,_E5
+39 LIT 1,0
+40 LOD FacIter%E$facto,0
+41 LOD FacIter%E$i,0
+42 OPR 0,4
+43 STO 0,FacIter%E$facto
+44 STO 0,$_EAUX
+45 LOD FacIter%E$i,0
+46 LOD $_EAUX,0
+47 OPR 0,3
+48 STO 0,FacIter%E$i
+49 JMP 0,_E4
+50 LOD FacIter%E$facto,0
+51 STO 0,FacIter%E
+52 OPR 0,1
+53 OPR 0,1
+54 STO 0,Concat%L%L$b
+55 STO 0,Concat%L%L$a
+56 LOD Concat%L%L$a,0
+57 LIT " ",0
+58 OPR 0,2
+59 LOD Concat%L%L$b,0
+60 OPR 0,2
+61 STO 0,Concat%L%L
+62 OPR 0,1
+63 OPR 0,1
+64 LIT 3,0
+65 STO 0,Selecciona$opc
+66 LIT 4,0
+67 STO 0,Selecciona$n
+68 LIT V,0
+69 JMC F,_E7
+70 LIT "Dame un numero: ",0
+71 OPR 0,20
+72 OPR Selecciona$n,19
+73 LIT "Factorial 1]Recursivo 2]Iterativo 3]Salir: ",0
+74 OPR 0,20
+75 OPR Selecciona$opc,19
+76 LOD Selecciona$opc,0
+77 LIT 3,0
+78 OPR 0,14
+79 JMC F,_E9
+80 JMP 0,_E10
+81 JMP 0,_E8
+82 LOD Selecciona$opc,0
+83 LIT 1,0
+84 OPR 0,14
+85 JMC F,_E11
+86 LIT "Factorial Recursivo de ",0
+87 OPR 0,20
+88 LOD Selecciona$n,0
+89 OPR 0,20
+90 LIT " es= ",0
+91 OPR 0,20
+92 LOD _E12,0
+93 LOD Selecciona$n,0
+94 CAL FacRec%E,0
+95 LOD FacRec%E,0
+96 OPR 0,20
+97 LIT "",0
+98 OPR 0,21
+99 JMP 0,_E8
+100 LOD Selecciona$opc,0
+101 LIT 2,0
+102 OPR 0,14
+103 JMC F,_E13
+104 LIT "Factorial Iterativo de ",0
+105 OPR 0,20
+106 LOD Selecciona$n,0
+107 OPR 0,20
+108 LIT " es= ",0
+109 OPR 0,20
+110 LOD _E14,0
+111 LOD Selecciona$n,0
+112 CAL FacIter%E,0
+113 LOD FacIter%E,0
+114 OPR 0,20
+115 LIT "",0
+116 OPR 0,21
+117 JMP 0,_E8
+118 LIT "Opcion No validan",0
+119 OPR 0,20
+120 JMP 0,_E6
+121 OPR 0,1
+122 STO 0,VolCil%D%D$altura
+123 STO 0,VolCil%D%D$radio
+124 LOD $MAX,0
+125 STO 0,VolCil%D%D
+126 OPR 0,1
+127 LOD $PI,0
+128 LOD VolCil%D%D$radio,0
+129 LIT 2,0
+130 OPR 0,7
+131 OPR 0,4
+132 LOD VolCil%D%D$altura,0
+133 OPR 0,4
+134 STO 0,VolCil%D%D
+135 OPR 0,1
+136 OPR 0,1
+137 LIT 1,0
+138 STO 0,Test$i
+139 LIT 1,0
+140 STO 0,Test$i
+141 LOD Test$i,0
+142 LIT 10,0
+143 OPR 0,11
+144 JMC F,_E16
+145 LIT 1,0
+146 LOD Test$i,0
+147 LIT 5,0
+148 OPR 0,14
+149 JMC F,_E18
+150 JMP 0,_E19
+151 JMP 0,_E17
+152 LIT "i= ",0
+153 OPR 0,20
+154 LOD Test$i,0
+155 OPR 0,20
+156 LIT "",0
+157 OPR 0,21
+158 STO 0,$_EAUX
+159 LOD Test$i,0
+160 LOD $_EAUX,0
+161 OPR 0,2
+162 STO 0,Test$i
+163 JMP 0,_E15
+164 LIT 1,0
+165 STO 0,Test$i
+166 LIT V,0
+167 JMC F,_E21
+168 LIT "i= ",0
+169 OPR 0,20
+170 LOD Test$i,0
+171 OPR 0,20
+172 LIT "",0
+173 OPR 0,21
+174 LOD Test$i,0
+175 LIT 1,0
+176 OPR 0,2
+177 STO 0,Test$i
+178 LOD Test$i,0
+179 LIT 7,0
+180 OPR 0,14
+181 JMC F,_E23
+182 JMP 0,_E24
+183 JMP 0,_E22
+184 JMP 0,_E20
+185 OPR 0,1
+186 STO 0,LeeVec%E$k
+187 LIT 1,0
+188 STO 0,LeeVec%E$i
+189 LIT 4.5,0
+190 STO 0,LeeVec%E$m
+191 LIT 1,0
+192 STO 0,LeeVec%E$i
+193 LOD LeeVec%E$i,0
+194 LOD LeeVec%E$k,0
+195 OPR 0,11
+196 JMC F,_E26
+197 LIT 1,0
+198 LIT "Vector[",0
+199 OPR 0,20
+200 LOD LeeVec%E$i,0
+201 OPR 0,20
+202 LIT "]: ",0
+203 OPR 0,20
+204 LOD LeeVec%E$i,0
+205 OPR $vector,19
+206 STO 0,$_EAUX
+207 LOD LeeVec%E$i,0
+208 LOD $_EAUX,0
+209 OPR 0,2
+210 STO 0,LeeVec%E$i
+211 JMP 0,_E25
+212 OPR 0,1
+213 LIT falso,0
+214 STO 0,Secuencia$i
+215 LIT falso,0
+216 LIT verdadero,0
+217 LIT 0,0
+218 LIT 1,0
+219 OPR 0,2
+220 STO 0,$_EAUX
+221 STO 0,Secuencia$i
+222 LOD $_EAUX,0
+223 LOD $_EAUX,0
+224 LIT "i= ",0
+225 OPR 0,20
+226 LOD Secuencia$i,0
+227 OPR 0,20
+228 LIT "",0
+229 OPR 0,21
+230 LIT 2,0
+231 OPR 0,14
+232 JMC F,_E27
+233 STO 0,$_EAUX
+234 OPR 0,1
+235 STO 0,OrdVec%E$k
+236 LIT 1,0
+237 STO 0,OrdVec%E$temp
+238 LIT 1,0
+239 STO 0,OrdVec%E$j
+240 LIT 1,0
+241 STO 0,OrdVec%E$i
+242 LIT 1,0
+243 STO 0,OrdVec%E$i
+244 LOD OrdVec%E$i,0
+245 LOD OrdVec%E$k,0
+246 LIT 1,0
+247 OPR 0,3
+248 OPR 0,11
+249 JMC F,_E29
+250 LIT 1,0
+251 LOD OrdVec%E$i,0
+252 LIT 1,0
+253 OPR 0,2
+254 STO 0,OrdVec%E$j
+255 LOD OrdVec%E$j,0
+256 LOD OrdVec%E$k,0
+257 OPR 0,11
+258 JMC F,_E31
+259 LIT 1,0
+260 LOD OrdVec%E$i,0
+261 LOD $vector,0
+262 LOD OrdVec%E$j,0
+263 LOD $vector,0
+264 OPR 0,10
+265 JMC F,_E33
+266 LOD OrdVec%E$i,0
+267 LOD $vector,0
+268 STO 0,OrdVec%E$temp
+269 LOD OrdVec%E$i,0
+270 LOD OrdVec%E$j,0
+271 LOD $vector,0
+272 STO 0,$vector
+273 LOD OrdVec%E$j,0
+274 LOD OrdVec%E$temp,0
+275 STO 0,$vector
+276 JMP 0,_E32
+277 STO 0,$_EAUX
+278 LOD OrdVec%E$j,0
+279 LOD $_EAUX,0
+280 OPR 0,2
+281 STO 0,OrdVec%E$j
+282 JMP 0,_E30
+283 STO 0,$_EAUX
+284 LOD OrdVec%E$i,0
+285 LOD $_EAUX,0
+286 OPR 0,2
+287 STO 0,OrdVec%E$i
+288 JMP 0,_E28
+289 OPR 0,1
+290 STO 0,ImpVec%E$k
+291 LIT 1,0
+292 STO 0,ImpVec%E$i
+293 OPR 0,1
+294 LIT 1,0
+295 STO 0,ImpVec%E$i
+296 LOD ImpVec%E$i,0
+297 LOD ImpVec%E$k,0
+298 OPR 0,11
+299 JMC F,_E35
+300 LIT 1,0
+301 LIT "Vector[",0
+302 OPR 0,20
+303 LOD ImpVec%E$i,0
+304 OPR 0,20
+305 LIT "]= ",0
+306 OPR 0,20
+307 LOD ImpVec%E$i,0
+308 LOD $vector,0
+309 OPR 0,20
+310 LIT "",0
+311 OPR 0,21
+312 STO 0,$_EAUX
+313 LOD ImpVec%E$i,0
+314 LOD $_EAUX,0
+315 OPR 0,2
+316 STO 0,ImpVec%E$i
+317 JMP 0,_E34
+318 OPR 0,1
+319 STO 0,LeeMat%E$k
+320 LIT 1,0
+321 STO 0,LeeMat%E$j
+322 LIT 1,0
+323 STO 0,LeeMat%E$i
+324 LIT 1,0
+325 STO 0,LeeMat%E$i
+326 LOD LeeMat%E$i,0
+327 LOD LeeMat%E$k,0
+328 OPR 0,11
+329 JMC F,_E37
+330 LIT 1,0
+331 LIT 1,0
+332 STO 0,LeeMat%E$j
+333 LOD LeeMat%E$j,0
+334 LOD LeeMat%E$k,0
+335 OPR 0,11
+336 JMC F,_E39
+337 LIT 1,0
+338 LIT "Matriz[",0
+339 OPR 0,20
+340 LOD LeeMat%E$i,0
+341 OPR 0,20
+342 LIT "][",0
+343 OPR 0,20
+344 LOD LeeMat%E$j,0
+345 OPR 0,20
+346 LIT "]: ",0
+347 OPR 0,20
+348 LOD LeeMat%E$i,0
+349 LOD LeeMat%E$j,0
+350 OPR $matriz,19
+351 STO 0,$_EAUX
+352 LOD LeeMat%E$j,0
+353 LOD $_EAUX,0
+354 OPR 0,2
+355 STO 0,LeeMat%E$j
+356 JMP 0,_E38
+357 STO 0,$_EAUX
+358 LOD LeeMat%E$i,0
+359 LOD $_EAUX,0
+360 OPR 0,2
+361 STO 0,LeeMat%E$i
+362 JMP 0,_E36
+363 OPR 0,1
+364 STO 0,MulMat%E%E$v
+365 STO 0,MulMat%E%E$k
+366 LIT 1,0
+367 STO 0,MulMat%E%E$j
+368 LIT 1,0
+369 STO 0,MulMat%E%E$i
+370 LIT 1,0
+371 STO 0,MulMat%E%E$i
+372 LOD MulMat%E%E$i,0
+373 LOD MulMat%E%E$k,0
+374 OPR 0,11
+375 JMC F,_E41
+376 LIT 1,0
+377 LIT 1,0
+378 STO 0,MulMat%E%E$j
+379 LOD MulMat%E%E$j,0
+380 LOD MulMat%E%E$k,0
+381 OPR 0,11
+382 JMC F,_E43
+383 LIT 1,0
+384 LOD MulMat%E%E$i,0
+385 LOD MulMat%E%E$j,0
+386 LOD MulMat%E%E$i,0
+387 LOD MulMat%E%E$j,0
+388 LOD $matriz,0
+389 LOD MulMat%E%E$v,0
+390 OPR 0,4
+391 STO 0,$matriz
+392 STO 0,$_EAUX
+393 LOD MulMat%E%E$j,0
+394 LOD $_EAUX,0
+395 OPR 0,2
+396 STO 0,MulMat%E%E$j
+397 JMP 0,_E42
+398 STO 0,$_EAUX
+399 LOD MulMat%E%E$i,0
+400 LOD $_EAUX,0
+401 OPR 0,2
+402 STO 0,MulMat%E%E$i
+403 JMP 0,_E40
+404 OPR 0,1
+405 STO 0,ImpMat%E$k
+406 LIT 5,0
+407 STO 0,ImpMat%E$j
+408 LIT 5,0
+409 STO 0,ImpMat%E$i
+410 LIT 1,0
+411 STO 0,ImpMat%E$i
+412 LOD ImpMat%E$i,0
+413 LOD ImpMat%E$k,0
+414 OPR 0,11
+415 JMC F,_E45
+416 LIT 1,0
+417 LIT 1,0
+418 STO 0,ImpMat%E$j
+419 LOD ImpMat%E$j,0
+420 LOD ImpMat%E$k,0
+421 OPR 0,11
+422 JMC F,_E47
+423 LIT 1,0
+424 LIT "Matriz[",0
+425 OPR 0,20
+426 LOD ImpMat%E$i,0
+427 OPR 0,20
+428 LIT "][",0
+429 OPR 0,20
+430 LOD ImpMat%E$j,0
+431 OPR 0,20
+432 LIT "]= ",0
+433 OPR 0,20
+434 LOD ImpMat%E$i,0
+435 LOD ImpMat%E$j,0
+436 LOD $matriz,0
+437 OPR 0,20
+438 LIT "",0
+439 OPR 0,21
+440 STO 0,$_EAUX
+441 LOD ImpMat%E$j,0
+442 LOD $_EAUX,0
+443 OPR 0,2
+444 STO 0,ImpMat%E$j
+445 JMP 0,_E46
+446 STO 0,$_EAUX
+447 LOD ImpMat%E$i,0
+448 LOD $_EAUX,0
+449 OPR 0,2
+450 STO 0,ImpMat%E$i
+451 JMP 0,_E44
+452 OPR 0,1
+453 STO 0,Compara%D%D$b
+454 STO 0,Compara%D%D$a
+455 LOD Compara%D%D$a,0
+456 LOD Compara%D%D$b,0
+457 OPR 0,10
+458 STO 0,Compara%D%D
+459 OPR 0,1
+460 OPR 0,1
+461 LIT 3.3,0
+462 STO 0,principal$s
+463 LIT 3.3,0
+464 STO 0,principal$r
+465 LIT 4,0
+466 STO 0,principal$n
+467 LIT "Hi",0
+468 STO 0,principal$beta
+469 LIT "Hi",0
+470 STO 0,principal$alfa
+471 LOD _E48,0
+472 CAL Secuencia,0
+473 LOD _E49,0
+474 CAL Selecciona,0
+475 LIT "Dame Radio: ",0
+476 OPR 0,20
+477 OPR principal$r,19
+478 LIT "Dame Altura: ",0
+479 OPR 0,20
+480 OPR principal$s,19
+481 LIT "El Volumen del Cilindro= ",0
+482 OPR 0,20
+483 LOD _E50,0
+484 LOD principal$r,0
+485 LOD principal$s,0
+486 CAL VolCil%D%D,0
+487 LOD VolCil%D%D,0
+488 OPR 0,20
+489 LIT "",0
+490 OPR 0,21
+491 LIT "Es el radio= ",0
+492 OPR 0,20
+493 LOD principal$r,0
+494 OPR 0,20
+495 LIT " mayor que la Altura= ",0
+496 OPR 0,20
+497 LOD principal$s,0
+498 OPR 0,20
+499 LIT " ",0
+500 OPR 0,20
+501 LOD _E51,0
+502 LOD principal$r,0
+503 LOD principal$s,0
+504 CAL Compara%D%D,0
+505 LOD Compara%D%D,0
+506 OPR 0,20
+507 LIT "",0
+508 OPR 0,21
+509 LOD _E52,0
+510 LIT 10,0
+511 CAL LeeVec%E,0
+512 LOD _E53,0
+513 LIT 10,0
+514 CAL OrdVec%E,0
+515 LOD _E54,0
+516 LIT 10,0
+517 CAL ImpVec%E,0
+518 LIT "Dame elementos de Matriz NxN: ",0
+519 OPR 0,20
+520 OPR principal$n,19
+521 LOD _E55,0
+522 LOD principal$n,0
+523 CAL LeeMat%E,0
+524 LOD _E56,0
+525 LOD principal$n,0
+526 LIT 100,0
+527 CAL MulMat%E%E,0
+528 LOD _E57,0
+529 LOD principal$n,0
+530 CAL ImpMat%E,0
+531 LOD _E58,0
+532 CAL Test,0
+533 LIT "Dame tu nombre: ",0
+534 OPR 0,20
+535 OPR principal$alfa,19
+536 LIT "Dame tu Apellido: ",0
+537 OPR 0,20
+538 OPR principal$beta,19
+539 LIT "Hola ",0
+540 OPR 0,20
+541 LOD _E59,0
+542 LOD principal$alfa,0
+543 LOD principal$beta,0
+544 CAL Concat%L%L,0
+545 LOD Concat%L%L,0
+546 OPR 0,20
+547 LIT " ya pasaste!!!",0
+548 OPR 0,20
+549 LIT "",0
+550 OPR 0,21
+551 OPR 0,0

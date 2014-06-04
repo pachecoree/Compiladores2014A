@@ -1,0 +1,56 @@
+$matriz,V,E,1000,1000,#,
+_E2,I,I,7,0,#,
+_E3,I,I,44,0,#,
+_E4,I,I,14,0,#,
+_E5,I,I,38,0,#,
+principal$i,V,E,0,0,#,
+principal$j,V,E,0,0,#,
+principal$k,V,E,0,0,#,
+_E1,F,I,2,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 JMP 0,_E1
+2 LIT "Tamano de la matriz:  ",0
+3 OPR 0,20
+4 OPR principal$k,19
+5 LIT 1,0
+6 STO 0,principal$i
+7 LOD principal$i,0
+8 LOD principal$k,0
+9 OPR 0,11
+10 JMC F,_E3
+11 LIT 1,0
+12 LIT 1,0
+13 STO 0,principal$j
+14 LOD principal$j,0
+15 LOD principal$k,0
+16 OPR 0,11
+17 JMC F,_E5
+18 LIT 1,0
+19 LIT "Matriz[",0
+20 OPR 0,20
+21 LOD principal$i,0
+22 OPR 0,20
+23 LIT "][",0
+24 OPR 0,20
+25 LOD principal$j,0
+26 OPR 0,20
+27 LIT "]: ",0
+28 OPR 0,20
+29 LOD principal$i,0
+30 LOD principal$j,0
+31 OPR $matriz,19
+32 STO 0,$_EAUX
+33 LOD principal$j,0
+34 LOD $_EAUX,0
+35 OPR 0,2
+36 STO 0,principal$j
+37 JMP 0,_E4
+38 STO 0,$_EAUX
+39 LOD principal$i,0
+40 LOD $_EAUX,0
+41 OPR 0,2
+42 STO 0,principal$i
+43 JMP 0,_E2
+44 OPR 0,0

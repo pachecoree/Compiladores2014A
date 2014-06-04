@@ -1,0 +1,13 @@
+mat = [[1]]
+
+def e() 1 :
+	regresa 1
+.
+
+def e(i = 1) :
+	regresa
+.
+
+def principal() i=0 :
+	mat[e()][e()] = e(1)
+.

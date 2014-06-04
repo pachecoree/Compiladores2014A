@@ -1,0 +1,27 @@
+tabsim
+
+class iden
+-nombre
+-clase
+-tipo
+-dimen1
+-dimen2
+-----------
+apuntadora a valor
+
+
+funciones con parametros
+
+w$e$d
+
+w es funcion y recibe entero y decimal en ese orden
+
+
+
+
+
+1) Chequeo de unicidad
+
++variables y funciones no se dupliquen
+
++parametros y variables locales no se de dupliquen

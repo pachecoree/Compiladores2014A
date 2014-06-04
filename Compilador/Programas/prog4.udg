@@ -1,0 +1,8 @@
+def principal() num1 = num2 = 1 :
+	imprime ("Dame num1:  ") 
+	lee(num1)
+	imprime ("Dame num2:  ")
+	lee(num2)
+	si num1 > num2 : imprime ("Maximo es ", num1,"\n") .
+	sino : imprime ("Maximo es ", num2) .
+.

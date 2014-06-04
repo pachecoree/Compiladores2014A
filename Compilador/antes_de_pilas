@@ -1,0 +1,1106 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <stack>
+#include <cstring>
+#include <map>
+
+using namespace std;
+
+const int ACP = 99;
+const int ERR = -1;
+
+//prototipos
+void expr();
+void bloque();
+void funcs();
+void lfunc();
+
+string expresion = "";
+string lexema = "";
+string lex="";
+string token = "";
+int indx=0;
+char entrada[800000];
+int numero_reglon = 1;
+int numero_columna = 0;
+int caracteres_archivo = 0;
+int b_principal = 0;
+int error = 0 ;
+
+struct tabsim {
+    string valor;
+    string existe;
+    string tipo;
+    string dato;
+    int dimension1;
+    int dimension2;
+    int linea; //Linea de declaracion
+};
+
+struct def_funcion {
+    string retorno;
+    int linea;
+};
+
+map<string, tabsim> TABSIM; //mapa de simbolos
+map<string, def_funcion> TABDEF; //mapa de funciones
+
+//Elementos de un arreglo
+int dimension1_arreglo = 0;
+int dimension2_arreglo = 0;
+string dato_arreglo = "";
+string valor_arreglo = "";
+string tipo_arreglo = "";
+
+tabsim tabsim_element_creator() {
+    tabsim element;
+    element.valor="";
+    element.existe="verdad";
+    element.tipo = "";
+    element.dato = "";
+    element.dimension1 = 0;
+    element.dimension2 = 0;
+    element.linea = 0;
+    return element;
+}
+
+string palabras_reservadas[] = {
+    "produce",
+    "ejec",
+    "con",
+    "afirmar",
+    "final",
+    "mientras",
+    "interrumpe",
+    "para",
+    "pasa",
+    "clase",
+    "desde",
+    "imprime",
+    "continua",
+    "global",
+    "eleva",
+    "def",
+    "si",
+    "sino",
+    "regresa",
+    "del",
+    "importar",
+    "prueba",
+    "lee",
+    "otsi",
+    "en",
+    "mientras",
+    "otro",
+    "es",
+    "excepto",
+    "lamda"
+    "pasa"
+    };
+
+string constantes[] = {
+    "entero",
+    "flotante",
+    "literal"
+};
+
+string operadores_bool[] = {
+    "verdadero",
+    "falso"
+};
+
+string operadores_logicos[] = {
+    "y",
+    "o",
+    "no"
+};
+
+//Tabla de Transciciones
+int estados[34][32] = {
+/*00*/        1,1,4,9,1,1,10,24,23,22,25,26,18,20,19,17,14,11,33,10,10,10,10,10,10,10,10,10,10,ACP,ACP,ACP,
+/*01*/        2,2,2,2,2,2,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*02*/        2,2,2,2,2,2,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*03*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*04*/        ACP,ACP,4,4,ACP,ACP,6,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*05*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*06*/        ERR,ERR,7,7,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,
+/*07*/        ACP,ACP,7,7,ACP,29,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*08*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*09*/        ACP,ACP,4,4,ACP,ACP,6,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*10*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*11*/        12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,13,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+/*12*/        12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,13,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+/*13*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*14*/        15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,16,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+/*15*/        15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,16,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+/*16*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*17*/        ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,21,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,
+/*18*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,21,21,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*19*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,21,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*20*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,21,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*21*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*22*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*23*/        ACP,ACP,4,9,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*24*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*25*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,28,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*26*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,27,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*27*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*28*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*29*/        ERR,ERR,31,31,ERR,ERR,ERR,30,30,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,ERR,
+/*30*/        ACP,ACP,31,31,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*31*/        ACP,ACP,31,31,32,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*32*/        ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,
+/*33*/        33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,ACP
+        };
+//
+stack<string> ptipos;
+const string cTipo[] = {  "E=E", "B=B", "D=D", "L=L", "D=E",
+                          "E+E", "E+D", "D+E", "D+D", "L+L",
+                          "E-E", "E-D", "D-E", "D-D",
+                          "E*E", "E*D", "D*E", "D*D",
+                          "E**E",
+                          "E/E", "E/D", "D/E", "D/D",
+                          "E//E","E//D","D//E",
+                          "E%E", "-E", "-D",
+                          "ByB", "BoB", "BnoB",
+                          "E>E", "R>E", "E>D", "D>D",
+                          "E<E", "D<E", "E<D", "D<D",
+                          "E>=E", "D>=E", "E>=D", "D>=D",
+                          "E<=E", "D<=E", "E<=D", "D<=D",
+                          "E!=E", "D!=E", "E!=D", "D!=D", "L!=L",
+                          "E==E", "D==E", "E==D", "D==D", "L==L"
+};
+
+const string tipoR[] = { "", "", "", "", "",//asignacion
+                        "E", "D", "D", "D", "L",//suma
+                        "E", "D", "D", "D",//resta
+                        "E", "D", "D", "D",//multiplicacion
+                        "E",//potencia
+                        "D", "D", "D", "D",//division
+                        "E","D","D",//doble division
+                        "E", "E", "D",//modulo,signo
+                        "B", "B", "B",//logicos
+                        "B", "B", "B", "B",//relacioales
+                        "B", "B", "B", "B",
+                        "B", "B", "B", "B",
+                        "B", "B", "B", "B",
+                        "B", "B", "B", "B", "B",
+                        "B", "B", "B", "B", "B"
+};
+
+int buscaTipo(string cadt) {
+    for(int i=0; i < 54; i++)
+        if(cTipo[i]==cadt) return i;
+    return -1;
+}
+
+bool en_TABSIM(string value) {
+    string boleano = TABSIM[value].existe;
+    if (boleano == "verdad") { // existe en map
+        return true;
+    }
+    return false; // no Existe en map
+}
+
+bool en_TABDEF(string value) {
+    string boleano = TABDEF[value].retorno;
+    if (boleano != "") { // existe en map
+        return true;
+    }
+    return false; // no Existe en map
+}
+
+void agregar_funcion(def_funcion elemento, string nombre ) {
+    if (!en_TABDEF(nombre)) {
+        TABDEF[nombre] = elemento;
+    }
+    else {
+        error++;
+        cout << "Error Linea: "<< numero_reglon <<" Funcion '"<< nombre << "' ya fue declarada previamente en la linea : "<< TABDEF[nombre].linea << endl;
+    }
+}
+
+void agregar_identificador(tabsim elemento, string nombre) {
+    if (!en_TABSIM(nombre)) {
+        TABSIM[nombre] = elemento;
+    }
+    else {
+        error++;
+        string iden = nombre.substr(nombre.find("$")+1);
+        cout << "Error Linea: "<< numero_reglon <<" Identificador '"<< iden << "' ya fue declarado previamente en la linea : "<< TABSIM[nombre].linea << endl;
+    }
+}
+
+
+void clasifica_identificador(string iden) {
+    int i;
+    for(i=0; i<31;i++) {
+        if( iden == palabras_reservadas[i]) {
+            token = "RESERVADA";
+            return;
+        }
+    }
+    for(i=0; i<3;i++) {
+        if( iden == constantes[i]) {
+            token = "CONSTANTE";
+            return;
+        }
+    }
+    for(i=0; i<2;i++) {
+        if( iden == operadores_bool[i]) {
+            token = "BOOLEANO";
+            return;
+        }
+    }
+    for(i=0; i<3;i++) {
+        if( iden == operadores_logicos[i]) {
+            token = "LOGICO";
+            return;
+        }
+    }
+    token = "IDENTIFICADOR";
+    return;
+}
+
+int colcar (char c) {
+    int columna=ERR;
+    if ( c >= 65 && c <= 90) {
+        if (c == 67) {
+            columna=4;
+        }
+        else if ( c == 69) {
+            columna=5;
+        }
+        else
+            columna = 0;
+    }
+    else if ( c >= 97 && c <= 122) {
+        if (c == 99) {
+            columna=4;
+        }
+        else if ( c == 101) {
+            columna=5;
+        }
+        else
+            columna = 0;
+    }
+    else if ( c >= 49 && c <= 57) {
+        columna = 2;
+    }
+    switch (c) {
+        case 95: columna = 1; break;
+        case 48: columna = 3; break;
+        case 46: columna = 6; break;
+        case 43: columna = 7; break;
+        case 45: columna = 8; break;
+        case 37: columna = 9; break;
+        case 42: columna = 10; break;
+        case 47: columna = 11; break;
+        case 60: columna = 12; break;
+        case 62: columna = 13; break;
+        case 61: columna = 14; break;
+        case 33: columna = 15; break;
+        case 39: columna = 16; break;
+        case 34: columna = 17; break;
+        case 35: columna = 18; break;
+        case 64: columna = 19; break;
+        case 123: columna = 20; break;
+        case 125: columna = 21; break;
+        case 44: columna = 22; break;
+        case 91: columna = 23; break;
+        case 93: columna = 24; break;
+        case 40: columna = 25; break;
+        case 41: columna = 26; break;
+        case 58: columna = 27; break;
+        case 59: columna = 28; break;
+        case ' ': columna = 29; break;
+        case '\t': columna = 30; break;
+    }
+    return columna;
+}
+
+void agarra_token(int estado,string lexema) {
+    switch (estado) {
+        case 1: case 2: case 3: clasifica_identificador(lexema); break;
+        case 4: case 5: case 9: token = "ENTERO"; break; //INT //ENTERO
+        case 7: case 8: case 32: case 30: case 31: token = "DECIMAL"; break; //FLOAT //DECIMAL
+        case 20: case 21: case 18: token = "RELACIONAL"; break;
+        case 19: token = "ASIGNACION"; break;
+        case 22: case 23: case 24: case 25: case 26: case 27: case 28: token = "ARITMETICO"; break;
+        case 16: case 13: token = "LITERAL"; break; //STRING //LITERAL
+        case 10: token = "DELIMITADOR"; break;
+        case 33: token = "COMENTARIO"; break; //COMENTARIO
+    }
+}
+
+void parse() {
+    string lexema = "";
+    token = "";
+    lex = "";
+    int indx_lexema = 0;
+    int col=0;
+    int estado=0,estado_ant = 0;
+    char c;
+    int bandera=0;
+        while ( entrada[indx] != EOF && estado != ERR && estado != ACP) {
+            c = entrada[indx++];
+            numero_columna++;
+            //if (c == '\n' && (estado != 16 || estado != 13)) {
+            if (c == '\n') {
+                numero_reglon++;
+                numero_columna=0;
+            }
+            if (estado == 33) {
+                while ( c != '\n') {
+                    lexema+= c;
+                    indx_lexema++;
+                    bandera=1;
+                    c = entrada[indx++];
+                }
+            }
+            while ( estado == 0 && ( c == ' ' || c == '\t')) {
+                c = entrada[indx++];
+                numero_columna++;
+            }
+            /*if ((estado == 4 || estado == 7) &&c == ' ') { // quitar en caso de que la constante no acepte espacio entre variable y la 'c'
+                c = entrada[indx++];
+            }
+            else */if ( (c == ' ' || c == '\t'  || c == '\n') && estado > 0 && (estado != 11 && estado != 12 && estado != 14 && estado != 15)) {
+                estado = ACP;
+            }
+            col = colcar(c);
+            if ( col >= 0 && estado != ACP && estado != ERR) {
+                estado_ant = estado;
+                estado = estados[estado][col];
+                if ( estado != ACP && estado != ERR) {
+                    lexema+= c;
+                    indx_lexema++;
+                    bandera=1;
+                }
+            }
+            if ( estado == ACP || estado == ERR) {
+                indx--;
+                numero_columna--;
+            }
+            if (estado != ACP && estado != ERR ) estado_ant = estado;
+        }
+        agarra_token(estado_ant,lexema);
+        if (bandera==1 ) {
+            lex = lexema;
+        }
+        if (token == "COMENTARIO") {
+            parse();
+        }
+}
+
+
+int cte() {
+    if (token == "LITERAL") return 1;
+    if (token =="ENTERO") return 1;
+    if (token =="DECIMAL") return 1;
+    if (token =="BOOLEANO") return 1;
+    return 0;
+}
+
+int arreglo() {
+    if ( lex == "[") {
+        dimension1_arreglo = 1;
+        dimension2_arreglo = 0;
+        valor_arreglo = "";
+        dato_arreglo = "";
+        tipo_arreglo = "";
+        parse();
+        if (cte()) {
+            valor_arreglo = lex;
+            dato_arreglo = token;
+            tipo_arreglo = "VARIABLE";
+            parse();
+            while (lex == ",") {
+                dimension1_arreglo++;
+                parse();
+                if (cte()) {
+                    parse();
+                }
+                else {
+                    error++;
+                    cout <<"Se esperaba >> 'Constante' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+                }
+            }
+        }
+        else if (lex == "[") {
+            dimension2_arreglo = 1;
+            parse();
+            if (cte()) {
+                valor_arreglo = lex;
+                dato_arreglo = token;
+                tipo_arreglo = "VARIABLE";
+                parse();
+            }
+            if ( lex == "]") {
+                parse();
+            }
+            else {
+                error++;
+                cout <<"Se esperaba >> ']' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+                return 0;
+            }
+        }
+        if (lex == "]") {
+            return 1;
+        }
+        else {
+            error++;
+            cout <<"Se esperaba >> ']' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+            return 0;
+        }
+    }
+    return 0;
+}
+
+
+void vars(string prefijo) {
+    prefijo+= '$';
+    while ( token == "IDENTIFICADOR") {
+        tabsim element = tabsim_element_creator();
+        string arreglo_iden[10000];
+        int id_iden = 0 , i = 0;
+        arreglo_iden[id_iden++] = prefijo+lex;
+        element.linea = numero_reglon;
+        parse();
+        if ( lex == "=") {
+            parse();
+            while (token == "IDENTIFICADOR") {
+                arreglo_iden[id_iden++] = prefijo+lex;
+                parse();
+                if (lex == "=") {
+                    parse();
+                }
+                else { error++;
+                    cout <<"Se esperaba >> '=' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+                }
+            }
+            if (cte()) {
+                element.valor = lex;
+                element.dato = token;
+                element.tipo = "VARIABLE";
+                parse();
+            }
+            else if (arreglo()) {
+                element.tipo = tipo_arreglo;
+                element.valor = valor_arreglo;
+                element.dato = dato_arreglo;
+                element.dimension1 = dimension1_arreglo;
+                element.dimension2 = dimension2_arreglo;
+                parse();
+            }
+            else { error++;
+                cout <<"Error : Se esperaba Constante o arreglo" << endl;
+            }
+            if (lex == "c") {
+                element.tipo = "CONSTANTE";
+                parse();
+            }
+        }
+        else { error++;
+            cout <<"Se esperaba >> '=' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        for (i=0;i<id_iden; i++) {
+            agregar_identificador(element,arreglo_iden[i]);
+        }
+    }
+}
+
+void dimens() {
+    do {
+        if (lex == "[") {
+            parse();
+            expr();
+            if (lex == "]"){
+                parse();
+            }
+            else { error++;
+                cout <<"Se esperaba >> ']' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+            }
+        }
+   } while(lex == "[");
+}
+
+void asigna() {
+    if (token == "IDENTIFICADOR") {
+        parse();
+        if (lex == "(") {
+            lfunc();
+            return;
+        }
+        if (lex == "[") {
+            dimens();
+        }
+        if (lex == "=") {
+            parse();
+        }
+        else { error++;
+             cout <<"Se esperaba >> '=' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        expr();
+    }
+}
+
+void lfunc() {
+    if (lex == "(") {
+        expresion+=lex;
+        parse();
+        if (lex == ")") {
+            expresion+=lex;
+            parse();
+            return;
+        }
+        expr();
+        while(lex == ",") {
+            expresion+=lex;
+            parse();
+            expr();
+        }
+        if (lex == ")") {
+            expresion+=lex;
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> ')' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+    }
+}
+
+
+void termino() {
+    if (lex == "(") {
+        expresion+=lex;
+        parse();
+        expr();
+        if (lex == ")") {
+            expresion+=lex;
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> ')' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+    }
+    else if (token == "BOOLEANO"){
+        expresion+=lex;
+        parse();
+    }
+    else if (cte()) {
+        expresion+=lex;
+        parse();
+    }
+    else if (token == "IDENTIFICADOR") {
+        expresion+=lex;
+        parse();
+        if (lex == "[") {
+            dimens();
+        }
+        else if (lex == "(") {
+            lfunc();
+        }
+    }
+    else { error++;
+        cout <<"Error : Se esperaba constante o booleano o funcion o parentesis y se encontro" << lex << endl;
+    }
+}
+
+void ope_signo() {
+    if (lex == "-") {
+        expresion+=lex;
+        parse();
+    }
+    termino();
+}
+
+void ope_pot() {
+    do {
+        if (lex == "**") {
+            expresion+=lex;
+            parse();
+        }
+        ope_signo();
+    } while (lex == "**");
+}
+
+void ope_mul() {
+    do {
+        if (lex == "*" || lex == "/" || lex == "%" || lex == "//") {
+            expresion+=lex;
+            parse();
+
+        }
+        ope_pot();
+    } while (lex == "*" || lex == "/" || lex == "%" || lex == "//");
+}
+
+void ope_sum() {
+    do {
+        if (lex == "+" || lex == "-") {
+            expresion+=lex;
+            parse();
+        }
+        ope_mul();
+    } while (lex == "+" || lex == "-");
+}
+
+
+void ope_rel() {
+    ope_sum();
+        if (lex == "<" || lex == ">" || lex == "<=" || lex == ">=" ||
+            lex == "==" || lex == "!=") {
+            expresion+=lex;
+            parse();
+            ope_sum();
+        }
+}
+
+
+void ope_no() {
+    if (lex == "no") {
+        expresion+=lex;
+        parse();
+    }
+    ope_rel();
+
+}
+
+
+void ope_y() {
+    do {
+        if (lex == "y"){
+            expresion+=lex;
+            parse();
+        }
+        ope_no();
+
+    } while (lex == "y");
+}
+
+
+void expr() {
+    string op;
+    do {
+        if (lex == "o") {
+            expresion+=lex;
+            op = lex;
+            parse();
+        }
+        ope_y();
+        if( op == "||" ) {
+            string tp = ptipos.top(), tp1;
+            ptipos.pop();
+            tp1=ptipos.top();
+            ptipos.pop();
+            tp = tp1+op+tp;
+            int i;
+            if( (i = buscaTipo(tp) ) >= 0)
+                ptipos.push(tipoR[i]);
+            else {
+                ptipos.push("I");
+                cout << "[" << numero_reglon << "]" << "[" << numero_columna << "] "
+                         << " Conflicto en tipos en la operacion " << op <<" <"<< tp << ">" << endl;
+            }
+         }
+    } while (lex == "o");
+}
+
+
+void estatuto_si() {
+    if (lex == "si") {
+        cout << "Estatuto SI" << endl;
+        parse();
+        expr();
+        bloque();
+        while (lex == "otsi") {
+            cout << "Estatuto OTSI" << endl;
+            parse();
+            expr();
+            bloque();
+        }
+        if (lex == "sino") {
+            cout <<"Estatuto SINO" << endl;
+            parse();
+            bloque();
+        }
+    }
+}
+
+void estatuto_regresa() {
+    if (lex == "regresa") {
+        parse();
+        expresion = "";
+        expr();
+        cout <<"Estatuto REGRESA: "<< expresion << endl;
+    }
+}
+
+
+void lexp() {
+    if (arreglo()) {
+        parse();
+        return;
+    }
+    expr();
+    if (lex == ".") {
+        parse();
+    }
+    else { error++;
+        cout <<"Se esperaba >> '.' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+    }
+    if (lex == ".") {
+        parse();
+    }
+    else { error++;
+        cout <<"Se esperaba >> '.' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+    }
+    expr();
+    if (lex == "pasa") {
+        parse();
+        if (token == "ENTERO" || token == "DECIMAL") {
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> 'ENTERO' o 'DECIMAL' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+    }
+}
+
+
+
+void estatuto_desde() {
+    if (lex == "desde") {
+        parse();
+        expr();
+        if (lex == "en") {
+            parse();
+        }
+        else { error++;
+                cout <<"Se esperaba >> 'en' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        lexp();
+        bloque();
+        cout <<"Estatuto DESDE"<< endl;
+    }
+}
+
+
+void estatuto_mientras() {
+    if (lex == "mientras") {
+        parse();
+        expr();
+        bloque();
+    }
+}
+
+void estatuto_imprime() {
+    if (lex == "imprime") {
+        parse();
+        if (lex == "(") {
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> '(' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        expr();
+        while (lex == ",") {
+            parse();
+            expr();
+        }
+        if (lex == ")") {
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> ')' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+    }
+}
+
+void estatuto_lee() {
+    if (lex == "lee") {
+        parse();
+        if (lex == "(") {
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> '(' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        expr();
+        if (lex == ")") {
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> ')' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+    }
+}
+
+void estatuto_interrumpe() {
+    if (lex == "interrumpe") {
+        parse();
+    }
+}
+
+void estatuto_continua() {
+    if (lex == "continua") {
+        parse();
+    }
+}
+
+int comando() {
+    if (lex == "si") {
+        estatuto_si();
+    }
+    else if (lex == "desde") {
+        estatuto_desde();
+    }
+    else if (lex == "regresa") {
+        estatuto_regresa();
+    }
+    else if (lex == "mientras") {
+        estatuto_mientras();
+    }
+    else if (lex == "imprime") {
+        estatuto_imprime();
+    }
+    else if (lex == "lee") {
+        estatuto_lee();
+    }
+    else if (lex == "interrumpe") {
+        estatuto_interrumpe();
+    }
+    else if (lex == "continua") {
+        estatuto_continua();
+    }
+    else if (token == "IDENTIFICADOR") {
+        asigna();
+    }
+    else {
+        return 0;
+    }
+    return 1;
+}
+
+void estatutos() {
+    int comando_regreso = 0;
+    do {
+        comando_regreso = comando();
+    }while (comando_regreso == 1);
+}
+
+void bloque() {
+    if (lex == ":") {
+        parse();
+    }
+    else { error++;
+        cout <<"Se esperaba >> ':' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+    }
+    estatutos();
+    if (lex == ".") {
+        parse();
+    }
+    else { error++;
+        cout <<"Se esperaba >> '.' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+    }
+}
+
+char parametro_id () {
+    if (token == "ENTERO") {
+        return 'E';
+    }
+    if (token == "BOOLEANO") {
+        return 'B';
+    }
+    if (token == "LITERAL") {
+        return 'L';
+    }
+    if (token == "DECIMAL") {
+        return 'D';
+    }
+}
+
+
+string param(string prefijo) {
+        if (lex == ")") {
+            return prefijo;
+        }
+        tabsim estructura_parametros[10000];
+        string nombre_parametros[10000];
+        int ind_ep = 0;
+        string nombre_funcion = prefijo;
+        //nombre_funcion+= '$';
+        tabsim element = tabsim_element_creator();
+        element.linea = numero_reglon;
+        string nombre = "";
+        if (token == "IDENTIFICADOR") {
+            nombre = lex;
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> 'IDENTIFICADOR' o 'ARREGLO' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        if (lex == "=") {
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> '=' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        if (cte()) {
+            element.valor = lex;
+            element.dato = token;
+            element.tipo = "VARIABLE";
+            nombre_parametros[ind_ep] = nombre;
+            estructura_parametros[ind_ep++] = element;
+            char pre_par = parametro_id();
+            nombre_funcion = nombre_funcion + '%' + pre_par;
+            //agregar_identificador(element,nombre);
+            parse();
+        }
+        else if (arreglo()) {
+            cout << "Parametro " << lex << endl;
+            parse();
+        }
+        else { error++;
+            cout <<"Se esperaba >> 'IDENTIFICADOR' o 'ARREGLO' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        while (lex == ",") {
+            element = tabsim_element_creator();
+            element.linea = numero_reglon;
+            nombre = "";
+            parse();
+            if (token == "IDENTIFICADOR") {
+                nombre = lex;
+                parse();
+            }
+            else { error++;
+                cout <<"Se esperaba >> 'IDENTIFICADOR' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+            }
+            if (lex == "=") {
+                parse();
+            }
+            else { error++;
+                cout <<"Se esperaba >> '=' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+            }
+            if (cte()) {
+                element.valor = lex;
+                element.dato = token;
+                element.tipo = "VARIABLE";
+                nombre_parametros[ind_ep] = nombre;
+                estructura_parametros[ind_ep++] = element;
+                char pre_par = parametro_id();
+                nombre_funcion = nombre_funcion + '%' + pre_par;
+                //agregar_identificador(element,nombre);
+                parse();
+            }
+            else if (arreglo()) {
+                parse();
+            }
+            else { error++;
+                cout <<"Se esperaba >> 'IDENTIFICADOR' o 'ARREGLO' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+            }
+        }
+        int i = 0;
+        for ( ; i< ind_ep; i++ ) {
+            string value = nombre_funcion + "$" + nombre_parametros[i];
+            agregar_identificador(estructura_parametros[i],value);
+        }
+        return nombre_funcion;
+}
+
+
+void prgm() {
+    parse();
+    vars("");
+    funcs();
+    if (b_principal == 0) { error++;
+        cout <<"Se esperaba funcion principal pero no fue encontrada! "<< endl;
+    }
+    if (token != "") { error++;
+        cout <<"Unexpected "<< lex <<" << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+    }
+}
+
+
+void funcs() {
+    while (lex == "def") {
+        def_funcion elemento_funcion;
+        elemento_funcion.linea = numero_reglon;
+        string prefijo = "";
+        parse();
+        if (b_principal == 0 && lex == "principal") {
+            b_principal = 1; // si hay principal
+        }
+        else if (token == "IDENTIFICADOR") {
+
+        }
+        else {
+            cout <<"Se esperaba >> 'IDENTIFICADOR' << se encontro >> '"<< token <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        prefijo = lex;
+        parse();
+        if (lex == "(") {
+            parse();
+        }
+        else {
+            cout <<"Se esperaba >> '(' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        prefijo=param(prefijo);
+        if (lex == ")") {
+            parse();
+        }
+        else {
+            cout <<"Se esperaba >> ')' << se encontro >> '"<< lex <<"' << en el renglon '"<<numero_reglon-1 <<"',columna " <<numero_columna << endl;
+        }
+        if (cte()) {
+            elemento_funcion.retorno = token;
+            parse();
+        }
+        else elemento_funcion.retorno = "vacio";
+        agregar_funcion(elemento_funcion,prefijo);
+        vars(prefijo);
+        bloque();
+    }
+}
+
+
+int main () {
+    char caracter = 0;
+    int i=0 , j=0;
+    FILE *archivo_entrada;
+    archivo_entrada = fopen ("lexico.txt","r");
+    if (archivo_entrada!=NULL) {
+        while (caracter != EOF) {
+            caracter = fgetc (archivo_entrada);
+            entrada[i]= caracter;
+            i++;
+        }
+        caracteres_archivo = i;
+        entrada[i] = EOF;
+        fclose (archivo_entrada);
+    }
+    int renglon = 1;
+    cout<<"["<<renglon++<<"]\t";
+    for (j=0; j<i-1 ; j++) {
+        if(entrada[j] == '\n') {
+            cout << "\n["<<renglon++<<"]\t";
+        }
+        else cout << entrada[j];
+    }
+    cout << "\n\n" << endl;
+    prgm();
+    if (error == 0 ) cout << "\n\n\nAnalisis Completo\n\n"<< endl;
+    else cout << "\n\n\nNo se pudo compilar programa debido a "<<error<<" errores\n\n"<< endl;
+    cout << "\n\n\n" << endl;
+    int ii;
+    for( map<string, tabsim>::iterator ii=TABSIM.begin(); ii!=TABSIM.end(); ++ii) {
+       cout << (*ii).first << "\t: " << (*ii).second.dato << ": " << (*ii).second.tipo << ": "<< (*ii).second.valor << endl;
+    }
+    for( map<string, def_funcion>::iterator ii=TABDEF.begin(); ii!=TABDEF.end(); ++ii) {
+       cout << (*ii).first << "\t: " << (*ii).second.retorno << endl;
+    }
+    return 0;
+}
+

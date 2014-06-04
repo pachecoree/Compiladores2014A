@@ -1,0 +1,66 @@
+https://www.facebook.com/pages/Taller-Compiladores-2014A/484700908303176
+
+Definicion del Lenguaje PiToN
+
+Palabras Reservadas:
+produce		ejec			con
+afirmar		final			mientras
+interrumpe		para			pasa
+clase			desde			imprime
+continua		global		eleva
+def			si			regresa
+del			importar		prueba
+otsi			en			mientras
+otro			es			
+excepto		lamda			
+
+Operadores Aritmeticos:
++			**
+-			//
+*
+/
+%
+Operadores Relacionales:
+==		<
+!=		>=
+<>		<=
+>		
+Operador de Asignacion:
+=
+Operadores Lógicos:
+y
+o 
+no
+Constantes:
+enteros, largo, flotante
+'Hola', "Python"
+'\n'
+verdaero, falso
+Comentarios:
+# Comentario de Linea 
+
+delimitadores:
+; : , ( ) [ ] . { } @ #
+
+Reglas de Nomenclatura:
+
+*.udg   Codigo Fuente
+*.eje   Ejecutable en PL/0
+*.class Ejecutable para Bytecode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

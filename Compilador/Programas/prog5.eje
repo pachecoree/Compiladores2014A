@@ -1,0 +1,48 @@
+_E2,I,I,31,0,#,
+_E3,I,I,14,0,#,
+_E4,I,I,29,0,#,
+principal$a,V,E,0,0,#,
+principal$n,V,E,0,0,#,
+_E1,F,I,2,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 JMP 0,_E1
+2 LIT "Escribe un numero :  ",0
+3 OPR 0,20
+4 OPR principal$n,19
+5 LOD principal$n,0
+6 LIT 1,0
+7 OPR 0,14
+8 JMC F,_E3
+9 LIT "El numero es 1 ",0
+10 OPR 0,20
+11 LIT "",0
+12 OPR 0,21
+13 JMP 0,_E2
+14 LOD principal$n,0
+15 LIT 2,0
+16 OPR 0,14
+17 JMC F,_E4
+18 LOD principal$n,0
+19 OPR 0,20
+20 LIT "+3=",0
+21 OPR 0,20
+22 LOD principal$n,0
+23 LIT 3,0
+24 OPR 0,2
+25 OPR 0,20
+26 LIT "",0
+27 OPR 0,21
+28 JMP 0,_E2
+29 LIT "Es otro numero",0
+30 OPR 0,20
+31 LOD principal$n,0
+32 STO 0,principal$a
+33 LOD principal$a,0
+34 OPR 0,20
+35 LIT " es igual que ",0
+36 OPR 0,20
+37 LOD principal$n,0
+38 OPR 0,20
+39 OPR 0,0

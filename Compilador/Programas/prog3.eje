@@ -1,0 +1,8 @@
+$i,V,E,0,0,#,
+factorial$i,V,E,0,0,#,
+principal$i,V,E,0,0,#,
+principal$j,V,A,0,0,#,
+principal$k,V,A,0,0,#,
+factorial,F,I,1,0,#,
+principal,F,I,1,0,#,
+@

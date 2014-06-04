@@ -1,0 +1,8 @@
+def principal() i=1:
+	si i==2 
+		imprime("i es igual a 2")
+	.
+	imprime("2 al cuadrado = ", (2 ** 2) ,"\n")
+	imprime("2 al cubo = ", (2 ** 3),"\n")
+	imprime("2 a la 8 = ", (2 ** 8),"\n")
+.

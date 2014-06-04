@@ -1,0 +1,11 @@
+i = 1
+
+def factorial() i=2: 
+	principal("hello",i,i,i,i,i,i)
+.
+
+def principal() i=1 j="1" k="verdadero":
+	i = 1
+	factorial(i,j,k)
+	i = 4
+.

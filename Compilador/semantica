@@ -1,0 +1,43 @@
+Semantica
+1.- Unicidad
+
+2.- Tipos
++Operaciones
++Estatutos
++De relacion
+
+3.- Nombres relacionados
++uso (prototipo no declarado)
++dimensiones (falta dimension, debe dimensionarse, excede dimesion)*
+
+4. arreglar el desde.*
+
+
+
+
+Errores Semanticos a Implementar
+
+UNICIDAD
+1. Identificador ya Declarado (funcion o variable)
+2. Identificador no Declarado
+NOMBRES RELACIONADOS
+3. Identificador constante valor no puede modificarse
+4. Regresar valor si la funcion tiene tipo
+5. si regresa existe con expresion validar que funcion tiene tipo
+6. Validar dimension si existen (asignacion, expresion y lee)
+7. Validar si dimensiones no existen y se usan
+8. Falta de dimensiones (x= vec + mat)
+9. Excede dimensiones
+10. Verificar que se haya definido "principal"
+11. Interrumpe y continua esten dentro de un ciclo****
+CHEQUEO DE TIPOS
+12. Verificar tipo en retorno (debe ser mismo tipo, excepcion (funcion regresa Decimal en definicion, y regresa entero en ejecucion)
+13. Validar tipo logico en estatuto SI*
+14. Validar que tipo sea logico en Mientras*
+15. Validar que tipo entero en dimensiones*
+16. Verificar tipo en operaciones*
+17. Verificar tipo en asignacion*
+18. Validar que numero sea entero en paso*.
+
+
+

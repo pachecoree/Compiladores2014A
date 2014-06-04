@@ -1,0 +1,24 @@
+def Compara() n = m = 1:
+	imprime("Dame numero 1: ")
+	lee(n)
+	imprime("Dame numero 2: ")
+	lee(m)
+	si n > m : imprime ("\n","El numero 1 es mayor ") .
+	otsi m > n : imprime ("\n","El numero 2 es mayor ") .
+	sino : imprime("\n","Son iguales") . 
+.
+
+def Factorial(n=1) 5:
+	si n==1 : regresa 1 .
+	sino : regresa n * Factorial(n-1) .
+.
+
+def Factorial(n=1,m=2) 1:
+	regresa n+m
+.
+
+def principal():
+	imprime(Factorial(5),"\n")
+	imprime("La suma de numeros es : 3+5=",Factorial(3,5),"\n")
+	Compara()
+.

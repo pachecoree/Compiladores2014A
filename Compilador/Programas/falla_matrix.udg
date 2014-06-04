@@ -1,0 +1,22 @@
+matriz = [[15]]
+
+def principal() :
+	matriz[1][1] = 0
+	matriz[1][2] = 1
+	matriz[1][3] = 2
+	matriz[1][4] = 3
+	matriz[2][1] = 4
+	matriz[2][2] = 5
+	matriz[2][3] = 6
+	matriz[2][4] = 7
+	
+	imprime("Valores","\n")
+	imprime(matriz[1][1],"\n")
+	imprime(matriz[1][2],"\n")
+	imprime(matriz[1][3],"\n")
+	imprime(matriz[1][4],"\n")
+	imprime(matriz[2][1],"\n")
+	imprime(matriz[2][2],"\n")
+	imprime(matriz[2][3],"\n")
+	imprime(matriz[2][4],"\n")
+.

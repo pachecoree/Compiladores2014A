@@ -1,0 +1,34 @@
+n$Factorial$E,P,E,0,0,#,
+Factorial$E,F,E,1,0,#,
+_E1,I,I,10,0,#,
+_E2,I,I,20,0,#,
+_E3,I,I,16,0,#,
+_P,I,I,21,0,#,
+_E4,I,I,24,0,#,
+@
+1 STO 0, n$Factorial$E
+2 LOD n$Factorial$E, 0
+3 LIT 0, 0
+4 OPR 0, 14
+5 JMC F, _E1
+6 LIT 1, 0
+7 STO 0, Factorial$E
+8 OPR 0, 1
+9 JMC 0, _E2
+10 LOD n$Factorial$E, 0
+11 LOD _E3, 0
+12 LOD n$Factorial$E, 0
+13 LIT 1, 0
+14 OPR 0, 3
+15 CAL Factorial$E, 1
+16 LOD Factorial$E, 0
+17 OPR 0, 4
+18 STO 0, Factorial$E
+19 OPR 0, 1
+20 OPR 0, 1
+21 LOD _E4, 0
+22 LIT 5, 0
+23 CAL Factorial$E, 1
+24 LOD Factorial$E, 0
+25 OPR 0, 21
+26 OPR 0, 0

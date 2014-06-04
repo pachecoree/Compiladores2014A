@@ -1,0 +1,12 @@
+def sobre() 1:
+	regresa 5
+.
+
+def sobre(i = 1) 1 a = b=1 c="hola":
+	regresa 10
+.
+
+def principal() :
+	imprime(sobre(1))
+
+.

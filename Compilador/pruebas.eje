@@ -1,0 +1,30 @@
+$mat,V,E,1000,1000,#,
+_E1,I,I,13,0,#,
+_E2,I,I,16,0,#,
+e%E$i,P,E,0,0,#,
+principal$i,V,E,0,0,#,
+e,F,E,2,0,#,
+e%E,F,I,6,0,#,
+_E0,F,I,9,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 JMP 0,_E0
+2 LIT 1,0
+3 STO 0,e
+4 OPR 0,1
+5 OPR 0,1
+6 STO 0,e%E$i
+7 OPR 0,1
+8 OPR 0,1
+9 LIT 0,0
+10 STO 0,principal$i
+11 LOD _E1,0
+12 CAL e,0
+13 LOD e,0
+14 LOD _E2,0
+15 CAL e,0
+16 LOD e,0
+17 LIT 1,0
+18 STO 0,$mat
+19 OPR 0,0

@@ -1,0 +1,13 @@
+
+def Secuencia()  i = 1 :
+   desde i en ["hola", "mundo",1, "yeah"] :
+      imprime("i= ", i, "\n")
+   .
+.
+
+
+
+def principal() r = s = 3.3 
+                n = 4 alfa = beta = "Hi" :
+    Secuencia()
+.

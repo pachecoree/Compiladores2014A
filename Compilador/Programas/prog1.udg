@@ -1,0 +1,3 @@
+def principal () cadena = "cad":
+	imprime ("hola mundo")
+.

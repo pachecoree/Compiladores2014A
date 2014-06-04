@@ -1,0 +1,30 @@
+_E1,I,I,18,0,#,
+sobre%E$a,V,E,0,0,#,
+sobre%E$b,V,E,0,0,#,
+sobre%E$i,P,E,0,0,#,
+_E0,F,I,15,0,#,
+sobre,F,E,2,0,#,
+sobre%E,F,E,6,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 JMP 0,_E0
+2 LIT 5,0
+3 STO 0,sobre
+4 OPR 0,1
+5 OPR 0,1
+6 STO 0,sobre%E$i
+7 LIT 1,0
+8 STO 0,sobre%E$b
+9 LIT 1,0
+10 STO 0,sobre%E$a
+11 LIT 10,0
+12 STO 0,sobre%E
+13 OPR 0,1
+14 OPR 0,1
+15 LOD _E1,0
+16 LIT 1,0
+17 CAL sobre%E,0
+18 LOD sobre%E,0
+19 OPR 0,20
+20 OPR 0,0

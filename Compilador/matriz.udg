@@ -1,0 +1,12 @@
+matriz = [[1]]
+
+def principal() i= j = k = 0:
+	imprime("Tamano de la matriz:  ")
+	lee(k)
+    desde i en 1 .. k pasa 1.1 :
+        desde j en 1 .. k pasa 1 :
+           imprime("Matriz[", i, "][", j, "]: ")
+           lee(matriz[i][j])
+         .
+    .
+.

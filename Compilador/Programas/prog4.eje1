@@ -1,0 +1,28 @@
+principal$num1,V,E,0,0,#,
+principal$num2,V,E,0,0,#,
+_E1,I,I,18,0,#,
+_E2,I,I,22,0,#,
+_P,F,I,1,0,#,
+@
+1 LIT "Dame num1: ", 0
+2 OPR 0,20
+3 OPR principal$num1,19
+4 LIT "Dame num2: ",0
+5 OPR 0,20
+6 OPR principal$num2,19
+7 LOD principal$num1,0
+8 LOD principal$num2,0
+9 OPR 0,10
+10 JMC F,_E1
+11 LIT "Maximo es ",0
+12 OPR 0,20
+13 LOD principal$num1,0
+14 OPR 0,20
+15 LIT "",0
+16 OPR 0,21
+17 JMP 0,_E2
+18 LIT "Maximo es ",0
+19 OPR 0,20
+20 LOD principal$num2,0
+21 OPR 0,20
+22 OPR 0,0

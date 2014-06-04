@@ -1,0 +1,9 @@
+principal$cadena,V,A,0,0,#,
+_E1,F,I,2,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 JMP 0,_E1
+2 LIT "hola mundo",0
+3 OPR 0,20
+4 OPR 0,0

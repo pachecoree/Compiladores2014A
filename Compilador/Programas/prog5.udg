@@ -1,0 +1,11 @@
+def principal() a = n=1 :
+	imprime("Escribe un numero :  ")
+	lee(n)
+	si n==1 : imprime ("El numero es 1 ","\n") .
+	otsi n==2 : 
+		imprime (n,"+3=",n+3,"\n")
+		.
+	sino : imprime ("Es otro numero") .
+	a = n
+	imprime (a," es igual que " ,n)
+.

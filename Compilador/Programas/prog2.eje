@@ -1,0 +1,99 @@
+Compara$m,V,E,0,0,#,
+Compara$n,V,E,0,0,#,
+Factorial%E$n,P,E,0,0,#,
+Factorial%E%E$m,P,E,0,0,#,
+Factorial%E%E$n,P,E,0,0,#,
+_E10,I,I,78,0,#,
+_E2,I,I,30,0,#,
+_E3,I,I,17,0,#,
+_E4,I,I,26,0,#,
+_E5,I,I,50,0,#,
+_E6,I,I,40,0,#,
+_E7,I,I,46,0,#,
+_E8,I,I,62,0,#,
+_E9,I,I,72,0,#,
+Compara,F,I,2,0,#,
+Factorial%E,F,E,31,0,#,
+Factorial%E%E,F,E,51,0,#,
+_E1,F,I,59,0,#,
+_P,F,I,1,0,#,
+$_EAUX,V,E,0,0,#,
+@
+1 JMP 0,_E1
+2 LIT "Dame numero 1: ",0
+3 OPR 0,20
+4 OPR Compara$n,19
+5 LIT "Dame numero 2: ",0
+6 OPR 0,20
+7 OPR Compara$m,19
+8 LOD Compara$n,0
+9 LOD Compara$m,0
+10 OPR 0,10
+11 JMC F,_E3
+12 LIT "",0
+13 OPR 0,21
+14 LIT "El numero 1 es mayor ",0
+15 OPR 0,20
+16 JMP 0,_E2
+17 LOD Compara$m,0
+18 LOD Compara$n,0
+19 OPR 0,10
+20 JMC F,_E4
+21 LIT "",0
+22 OPR 0,21
+23 LIT "El numero 2 es mayor ",0
+24 OPR 0,20
+25 JMP 0,_E2
+26 LIT "",0
+27 OPR 0,21
+28 LIT "Son iguales",0
+29 OPR 0,20
+30 OPR 0,1
+31 STO 0,Factorial%E$n
+32 LOD Factorial%E$n,0
+33 LIT 1,0
+34 OPR 0,14
+35 JMC F,_E6
+36 LIT 1,0
+37 STO 0,Factorial%E
+38 OPR 0,1
+39 JMP 0,_E5
+40 LOD Factorial%E$n,0
+41 LOD _E7,0
+42 LOD Factorial%E$n,0
+43 LIT 1,0
+44 OPR 0,3
+45 CAL Factorial%E,0
+46 LOD Factorial%E,0
+47 OPR 0,4
+48 STO 0,Factorial%E
+49 OPR 0,1
+50 OPR 0,1
+51 STO 0,Factorial%E%E$m
+52 STO 0,Factorial%E%E$n
+53 LOD Factorial%E%E$n,0
+54 LOD Factorial%E%E$m,0
+55 OPR 0,2
+56 STO 0,Factorial%E%E
+57 OPR 0,1
+58 OPR 0,1
+59 LOD _E8,0
+60 LIT 5,0
+61 CAL Factorial%E,0
+62 LOD Factorial%E,0
+63 OPR 0,20
+64 LIT "",0
+65 OPR 0,21
+66 LIT "La suma de numeros es : 3+5=",0
+67 OPR 0,20
+68 LOD _E9,0
+69 LIT 3,0
+70 LIT 5,0
+71 CAL Factorial%E%E,0
+72 LOD Factorial%E%E,0
+73 OPR 0,20
+74 LIT "",0
+75 OPR 0,21
+76 LOD _E10,0
+77 CAL Compara,0
+78 OPR 0,0

@@ -1,0 +1,97 @@
+
+
+3 direcciones
+
+
+MNEMO	dir1	dir
+
+2
+
+
+
+
+
+
+-LIT	Carga constante en pila
+
+-LOD	Carga en pila valor segun tabla de simbolos
+
+-STO	Saca de la pila e inserta valor en identificador segun pila
+
+-JMP	Salto incondicional
+-JMC	Salto condicional
+
+-CAL	Llamada a subrutina
+
+-OPR	Operacion segun opcode
+
+
+
+
+
+
+
+LIT	Cte, 0 carga
+LOD	Iden, 0 carga valor iden segun tabsim a pila
+STO	0, Iden Guarda valor sobre pila en iden
+
+JMP	0, Cte salta a direccion segun valor de cte
+	 _Ex salta a dir segun valor de etiq _Ex
+
+JMC	cond,cte salta a dir en cte si cond se cumple
+	cond,_ex salta a dir en _ex si cond se cumple
+
+CAL	Iden,dir salta a codigo de iden, segun dir
+OPR 0,OpCode ejecuta operacion indicado en opcode
+
+OPR iden, 19 lee entrada de teclado
+
+
+
+Opcode
+
+
+
+0	Detencion de programa
+
+1	Regresa de subrutina(funcion)
+
+2 	suma
+
+3	resta
+
+4	multiplicacion
+
+5	division
+
+6	modulo
+
+7	Exponente
+8	menos unitario
+
+9	menor que
+
+10	mayor que
+
+11	menor o igual que
+
+12	mayor o igual que
+
+13	diferente de
+
+14	igual a
+
+15	logico o
+
+16	logico y
+
+17	logico no
+
+18	limpia pantalla
+
+19	lee entrada de teclado
+
+20	imprime sin bajar de linea
+
+21 	imprime con cambio de linea
+
